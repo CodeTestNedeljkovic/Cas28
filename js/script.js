@@ -51,7 +51,7 @@ let svePesme;
 
 $('button').on('click', function() {
     $.ajax({
-        url: 'data/domacepesmee.json',
+        url: 'data/domacepesme.json',
         success: function(result) {
             svePesme = result.pesme;
             popuniHtml();
@@ -71,9 +71,10 @@ $('button').on('click', function() {
 });
 
 function popuniHtml() {
-    let text = '<tr><th>Broj numere</th><th>Naziv pesme</th><th>Izvodjac</th><th>Obrisi</th></tr>';
+    let text = '<tr><th>Broj numere</th><th>Naziv pesme</th><th>Izvodjac</th><th>Obrisi</th><th>Izmeni</th></tr>';
     svePesme.forEach((el) => {
-        text += `<tr><td>${el.id}</td><td>${el.ime}</td><td>${el.izvodjac}</td><td><span data-id="${el.id}" class="fa fa-trash" aria-hidden="true"></span></td></tr>`;
+        text += `<tr><td>${el.id}</td><td>${el.ime}</td><td>${el.izvodjac}</td><td><span data-id="${el.id}" class="fa fa-trash" aria-hidden="true"></span></td><td><span class="fa fa-pencil" aria-hidden="true"></span>
+        </td></tr>`;
     });
     $('table').html(text);
     document.querySelectorAll('.fa-trash').forEach((el) => {
@@ -97,3 +98,23 @@ function popuniHtml() {
     //     popuniHtml();
     // });
 }
+
+// let users;
+
+// $('button').click(function() {
+//     $.ajax({
+//         url: 'https://jsonplaceholder.typicode.com/users',
+//         success: function(data) {
+//             users = data;
+//             let rand = Math.ceil(Math.random() * 10);
+//             fetch(`https://jsonplaceholder.typicode.com/users/${rand}`)
+//                 .then(json => json.json())
+//                 .then(data => {
+//                     console.log(data);
+//                 })
+//         },
+//         error: function(err) {
+//             console.log(err);
+//         }
+//     });
+// });
