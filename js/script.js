@@ -17,3 +17,14 @@
 //         console.log(data);
 //     });
 // console.log(2);
+
+
+//TODO: JQuery
+
+$('#tekst').html('PROMENJEN TEKST...');
+$('#tekst').on('click', function() {
+    $(this).fadeOut(2000);
+});
+$('#klasa').on('click', function() {
+    $(this).toggleClass('red');
+});
