@@ -7,8 +7,13 @@
 // xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos/1", true);
 // xhttp.send();
 
+// console.log(1);
 // fetch("https://jsonplaceholder.typicode.com/todos/1")
-//     .then(json => json.json())
+//     .then(json => {
+//         console.log(json);
+//         return json.json();
+//     })
 //     .then(data => {
 //         console.log(data);
 //     });
+// console.log(2);
