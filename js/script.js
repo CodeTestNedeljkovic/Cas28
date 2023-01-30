@@ -21,10 +21,79 @@
 
 //TODO: JQuery
 
-$('#tekst').html('PROMENJEN TEKST...');
-$('#tekst').on('click', function() {
-    $(this).fadeOut(2000);
+// $('#tekst').html('PROMENJEN TEKST...');
+// $('#tekst').on('click', function() {
+//     $(this).fadeOut(2000);
+// });
+// $('#klasa').on('click', function() {
+//     $(this).toggleClass('red');
+// });
+
+
+// $("button").click(function(){
+//     $.ajax({url: "data/demo_test.txt", success:
+//         function(result){
+//             $("#div1").html(result);
+//     }});
+// }); 
+
+// document.querySelector('button').addEventListener('click', function() {
+//     fetch('data/demo_test.txt')
+//     .then((json) => {
+//         return json.text();
+//     })
+//     .then((data) => {
+//         document.querySelector('#div1').innerHTML = data;
+//     })
+// });
+
+let svePesme;
+
+$('button').on('click', function() {
+    $.ajax({
+        url: 'data/domacepesmee.json',
+        success: function(result) {
+            svePesme = result.pesme;
+            popuniHtml();
+        },
+        error: function(err) {
+            let el = document.createElement('div');
+            el.classList = 'error_div';
+            el.classList += (err.status >= 400 && err.status < 500) ? ' red' : '';
+            el.classList += (err.status >= 500 && err.status < 600) ? ' orange' : '';
+            el.innerHTML = err.statusText;
+            document.body.append(el);
+            setTimeout(() => {
+                document.body.removeChild(el);
+            }, 7500);
+        }
+    })
 });
-$('#klasa').on('click', function() {
-    $(this).toggleClass('red');
-});
+
+function popuniHtml() {
+    let text = '<tr><th>Broj numere</th><th>Naziv pesme</th><th>Izvodjac</th><th>Obrisi</th></tr>';
+    svePesme.forEach((el) => {
+        text += `<tr><td>${el.id}</td><td>${el.ime}</td><td>${el.izvodjac}</td><td><span data-id="${el.id}" class="fa fa-trash" aria-hidden="true"></span></td></tr>`;
+    });
+    $('table').html(text);
+    document.querySelectorAll('.fa-trash').forEach((el) => {
+        el.addEventListener('click', function() {
+            let id = this.getAttribute('data-id');
+            svePesme = svePesme.filter((el) => {
+                if (el.id != id) {
+                    return el;
+                }
+            });
+            popuniHtml();
+        });
+    });
+    // $('.fa-trash').click(function() {
+    //     let id = Number($(this).attr('data-id'));
+    //     svePesme = svePesme.filter((el) => {
+    //         if (el.id !== id) {
+    //             return el;
+    //         }
+    //     });
+    //     popuniHtml();
+    // });
+}
